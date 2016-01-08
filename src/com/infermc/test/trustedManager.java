@@ -15,7 +15,6 @@ public class trustedManager implements CommandInterface {
         if (parent.isTrusted(commandSource.getName()) || commandSource.isOperator()) {
             if (strings.length > 0) {
                 String u = strings[0];
-
                 if (!parent.isTrusted(u)) {
                     if (parent.isOnline(u)) {
                         Player p = parent.getOnlinePlayer(u);
@@ -25,7 +24,13 @@ public class trustedManager implements CommandInterface {
                     parent.addTrusted(strings[0]);
                     commandSource.sendMessage("&aAdded " + u + " to the trusted list.");
                 } else {
-                    commandSource.sendMessage("&cThat player is already on the trust list!");
+                    if (parent.isOnline(u)) {
+                        Player p = parent.getOnlinePlayer(u);
+                        p.sendMessage("&a" + commandSource.getName() + " removed you from trusted list.");
+                        u = p.getName();
+                    }
+                    parent.removeTrusted(strings[0]);
+                    commandSource.sendMessage("&aRemoved " + u + " from the trusted list.");
                 }
             } else {
                 commandSource.sendMessage("Syntax: /trust username");
