@@ -21,6 +21,14 @@ public class TestPlugin extends JavaPlugin implements Listener {
     File playersFile;
 
     @Override
+    public void onLoad() {
+        // Register custom level generator
+        // The Level Generator must NOT rely on anything from a started server and must only use logs
+        // or functions that will always be accessible and guaranteed to work.
+        getServer().registerLevelGenerator(new FlatLevelGenerator(getLogger()));
+    }
+
+    @Override
     public void onEnable() {
         if (!getDataFolder().exists()) getDataFolder().mkdirs();
         BlockHandler bk = new BlockHandler(this);
@@ -64,7 +72,7 @@ public class TestPlugin extends JavaPlugin implements Listener {
             }
         }
         String chatMessage = name+"> &f"+ev.getMessage();
-        System.out.println(Chat.stripColour(chatMessage));
+        getServer().getLogger().info(Chat.stripColour(chatMessage));
         List<String> msgs = wordWrap(chatMessage,64);
         for (Player p : getServer().getPlayers()) {
             for (String m : msgs) p.sendMessage(m);

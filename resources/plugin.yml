@@ -2,4 +2,4 @@ name: TestPlugin
 main: com.infermc.test.TestPlugin
 author: Thomas Edwards
 description: A fine day for a test
-version: 0.1
+version: 1.1
