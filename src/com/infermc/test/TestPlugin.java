@@ -26,6 +26,7 @@ public class TestPlugin extends JavaPlugin implements Listener {
         // The Level Generator must NOT rely on anything from a started server and must only use logs
         // or functions that will always be accessible and guaranteed to work.
         getServer().registerLevelGenerator(new FlatLevelGenerator(getLogger()));
+        getServer().registerLevelGenerator(new FudgiesLevelGenerator(getLogger()));
     }
 
     @Override
